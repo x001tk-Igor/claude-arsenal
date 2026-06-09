@@ -1,0 +1,29 @@
+# .DS_Store
+.DS_Store
+**/.DS_Store
+
+# Logs
+*.log
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+*~
+
+# Secrets — никогда не коммить
+.env
+.env.*
+*credentials*
+*token*.txt
+*api*key*.txt
+
+# Build artifacts
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+
+# Временные файлы
+*.tmp
+*.bak

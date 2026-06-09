@@ -1,0 +1,102 @@
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "extraKnownMarketplaces": {
+    "karpathy-skills": {
+      "source": {
+        "source": "github",
+        "repo": "forrestchang/andrej-karpathy-skills"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "andrej-karpathy-skills@karpathy-skills": true
+  },
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git branch:*)",
+      "Bash(git fetch:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git stash:*)",
+      "Bash(git checkout:*)",
+      "Bash(git switch:*)",
+      "Bash(git merge:*)",
+      "Bash(git rebase:*)",
+      "Bash(git pull:*)",
+      "Bash(git clone:*)",
+      "Bash(git remote:*)",
+      "Bash(git tag:*)",
+      "Bash(git show:*)",
+      "Bash(git worktree:*)",
+      "Bash(npm test:*)",
+      "Bash(npm run:*)",
+      "Bash(npm install:*)",
+      "Bash(npm i:*)",
+      "Bash(pip install:*)",
+      "Bash(pip3 install:*)",
+      "Bash(brew install:*)",
+      "Bash(brew list:*)",
+      "Bash(brew services:*)",
+      "Bash(python3 -c ' *)",
+      "Bash(python3 -m pytest:*)",
+      "Bash(python3 -m pip:*)",
+      "Bash(python3 *)",
+      "Bash(python -m pytest:*)",
+      "Bash(python -m pip:*)",
+      "Bash(python -c ' *)",
+      "Bash(python *)",
+      "Bash(pytest:*)",
+      "Bash(curl:*)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(mv:*)",
+      "Bash(ls:*)",
+      "Bash(cd:*)",
+      "Bash(cat:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(sed:*)",
+      "Bash(awk:*)",
+      "Bash(du:*)",
+      "Bash(wc:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(stat:*)",
+      "Bash(file:*)",
+      "Bash(which:*)",
+      "Bash(env)",
+      "Bash(echo:*)",
+      "Bash(chmod:*)",
+      "Bash(touch:*)",
+      "Bash(rsync:*)",
+      "Bash(psql:*)",
+      "Bash(gh:*)",
+      "Bash(printf:*)",
+      "Bash(pg_config:*)",
+      "Bash(docker:*)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./**/.env)",
+      "Read(~/.ssh/**)",
+      "Read(./credentials*)",
+      "Bash(rm -rf:*)",
+      "Bash(sudo:*)",
+      "Bash(git push --force:*)"
+    ],
+    "ask": [
+      "Bash(git push:*)",
+      "Bash(npm publish:*)",
+      "Bash(brew uninstall:*)",
+      "Bash(rm -rf /*)",
+      "Bash(rm:*)"
+    ]
+  }
+}
