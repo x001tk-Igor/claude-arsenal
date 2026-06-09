@@ -71,6 +71,26 @@ for agent_file in "$ARSENAL_DIR/agents/"*.md; do
   fi
 done
 
+# --- 2.5. workflows (Dynamic Workflows, Claude Code v2.1.154+) ---
+if [[ -d "$ARSENAL_DIR/workflows" ]]; then
+  info "устанавливаю workflows в ~/.claude/workflows/ (требуется v2.1.154+)"
+  mkdir -p "$HOME/.claude/workflows"
+  WORKFLOWS_INSTALLED=0
+  for wf_file in "$ARSENAL_DIR/workflows/"*.js; do
+    [[ ! -f "$wf_file" ]] && continue
+    name=$(basename "$wf_file")
+    target="$HOME/.claude/workflows/$name"
+    if [[ -e "$target" && "${FORCE:-}" != "1" ]]; then
+      warn "workflow '$name' уже есть — пропускаю (FORCE=1 перезапишет)"
+    else
+      rm -f "$target"
+      cp "$wf_file" "$target"
+      ok "workflow: $name"
+      WORKFLOWS_INSTALLED=$((WORKFLOWS_INSTALLED+1))
+    fi
+  done
+fi
+
 # --- 3. master CLAUDE.md (опционально, не перезаписывает существующий) ---
 if [[ -f "$ARSENAL_DIR/CLAUDE.md" ]]; then
   target="$HOME/.claude/CLAUDE.arsenal.md"
@@ -105,8 +125,9 @@ fi
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 ok "Установка завершена"
-echo "  Skills:   $SKILLS_INSTALLED новых, $SKILLS_SKIPPED пропущено"
-echo "  Agents:   $AGENTS_INSTALLED новых"
+echo "  Skills:    $SKILLS_INSTALLED новых, $SKILLS_SKIPPED пропущено"
+echo "  Agents:    $AGENTS_INSTALLED новых"
+echo "  Workflows: ${WORKFLOWS_INSTALLED:-0} новых (если поддерживается)"
 echo "  Repo:     $ARSENAL_DIR"
 echo "  Runtime:  $HOME/claude-arsenal-runtime"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

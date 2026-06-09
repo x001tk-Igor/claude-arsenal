@@ -37,6 +37,18 @@ for agent in deep-research doc-analyzer meeting-notes news-digest parser report-
   fi
 done
 
+# workflows
+if [[ -d "$HOME/.claude/workflows" ]]; then
+  for wf in analyze-competitors deep-research data-analytics content-angles audience-insights codebase-audit; do
+    target="$HOME/.claude/workflows/$wf.js"
+    if [[ -f "$target" ]]; then
+      rm -f "$target"
+      ok "workflow удалён: $wf"
+      REMOVED=$((REMOVED+1))
+    fi
+  done
+fi
+
 if [[ -d "$HOME/claude-arsenal-runtime" ]]; then
   rm -rf "$HOME/claude-arsenal-runtime"
   ok "runtime удалён: ~/claude-arsenal-runtime"

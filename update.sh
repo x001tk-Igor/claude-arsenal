@@ -52,11 +52,31 @@ if [[ -d "$ARSENAL_DIR/runtime" ]]; then
   ok "runtime → $RUNTIME_TARGET"
 fi
 
+# --- workflows ---
+if [[ -d "$ARSENAL_DIR/workflows" ]]; then
+  mkdir -p "$HOME/.claude/workflows"
+  WORKFLOWS_NEW=0; WORKFLOWS_SKIP=0
+  for wf_file in "$ARSENAL_DIR/workflows/"*.js; do
+    [[ ! -f "$wf_file" ]] && continue
+    name=$(basename "$wf_file")
+    target="$HOME/.claude/workflows/$name"
+    if [[ -e "$target" && "$FORCE" != "1" ]]; then
+      WORKFLOWS_SKIP=$((WORKFLOWS_SKIP+1))
+    else
+      rm -f "$target"
+      cp "$wf_file" "$target"
+      ok "workflow: $name"
+      WORKFLOWS_NEW=$((WORKFLOWS_NEW+1))
+    fi
+  done
+fi
+
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 ok "Update завершён"
-echo "  Skills:   $SKILLS_NEW обновлено, $SKILLS_SKIP пропущено"
-echo "  Agents:   $AGENTS_NEW обновлено, $AGENTS_SKIP пропущено"
+echo "  Skills:    $SKILLS_NEW обновлено, $SKILLS_SKIP пропущено"
+echo "  Agents:    $AGENTS_NEW обновлено, $AGENTS_SKIP пропущено"
+echo "  Workflows: ${WORKFLOWS_NEW:-0} обновлено, ${WORKFLOWS_SKIP:-0} пропущено"
 echo "  (FORCE=1 чтобы перезаписать пропущенные)"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 ok "Перезапусти Claude Code чтобы изменения подхватились"

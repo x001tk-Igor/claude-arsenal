@@ -1,6 +1,6 @@
 ---
 name: <agent-name>
-description: <one-line — когда вызывать этого агента>. Use when <триггерная фраза>.
+description: <одна строка — когда вызывать этого агента>. Use when <триггерная фраза>.
 tools: <comma-separated list, e.g. WebSearch, WebFetch, Read, Write, Bash>
 ---
 
@@ -13,6 +13,31 @@ tools: <comma-separated list, e.g. WebSearch, WebFetch, Read, Write, Bash>
 - <сценарий 1>
 - <сценарий 2>
 - НЕ вызывать, если: <антисценарий>
+
+## Структура промпта для agent()
+
+**Всегда используй 5 частей** (паттерн из bonus-workflows — снижает галлюцинации):
+
+```
+# Роль
+Ты — <роль, опыт, специальность>.
+
+# Контекст
+<что у агента на входе: переменные, JSON, фрагмент данных>
+
+# Задача (по шагам)
+1. ...
+2. ...
+
+# Ограничения
+- Только <источник>, никаких догадок.
+- <что НЕ делать>.
+
+# Формат
+Верни строго по JSON-схеме (поля X, Y, Z). / Чистый Markdown.
+```
+
+См. `docs/PATTERNS.md` для разбора.
 
 ## Workflow
 
@@ -42,5 +67,11 @@ tools: <comma-separated list, e.g. WebSearch, WebFetch, Read, Write, Bash>
 | yt-dlp CLI | — | для YouTube транскриптов |
 
 Если основной tool падает → переключись на fallback → если и тот — верни `status: error` с описанием в `error`.
-</content>
-</invoke>
+
+## Выбор модели (шпаргалка)
+
+Подробно — `docs/MODEL_TIERS.md`. Короткая версия:
+
+- **haiku** — извлечение JSON-поля по схеме, рутинная разметка
+- **sonnet** — фанат-аут, верификация, scoring
+- **opus** — финальный synthesis в Markdown (1 вызов в конце)

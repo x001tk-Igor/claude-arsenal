@@ -28,6 +28,19 @@
 | `youtube-analyzer` | YouTube-видео → транскрипт + саммари | «Сделай выжимку этого видео» |
 | `meeting-notes` | Транскрипт встречи → саммари, решения, action items | «Сделай заметки по встрече» |
 
+## Workflows (6, Dynamic Workflows v2.1.154+)
+
+Это **слой оркестрации поверх агентов**: один JS-скрипт запускает веер агентов, состязательную проверку и финальный synthesis. Подробнее — `workflows/README.md`, `docs/PATTERNS.md`.
+
+| Workflow | Команда | Что делает |
+|----------|---------|------------|
+| `analyze-competitors.js` | `/analyze-competitors` | Конкуренты → таблица + пробелы рынка |
+| `deep-research.js` | `/deep-research` | Scope → fan-out search → 3-judge verify → отчёт |
+| `data-analytics.js` | `/data-analytics` | Аналитика массива записей (отзывы/заявки) |
+| `content-angles.js` | `/content-angles` | 6 линз → 3-judge panel → топ-3 идеи |
+| `audience-insights.js` | `/audience-insights` | Кастдевы/комменты → боли/сегменты/цитаты |
+| `codebase-audit.js` | `/codebase-audit` | Find per file → adversarial verify → подтверждённые проблемы |
+
 ## Что НЕ вошло (и почему)
 
 Удалено из `anthropics/skills` после аудита:
@@ -43,5 +56,3 @@
 2. Заполни все 3 слоя (description / instructions / tools)
 3. `./install.sh` или `./update.sh`
 4. Добавь строку в этот файл
-</content>
-</invoke>

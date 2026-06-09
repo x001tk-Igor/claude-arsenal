@@ -34,6 +34,16 @@ EXPECTED_AGENTS=8
 ACTUAL_AGENTS=$(find "$ARSENAL_DIR/agents" -maxdepth 1 -mindepth 1 -type f -name '*.md' | wc -l | tr -d ' ')
 check "agents = $EXPECTED_AGENTS" "[[ $ACTUAL_AGENTS -eq $EXPECTED_AGENTS ]]" "найдено $ACTUAL_AGENTS, ожидалось $EXPECTED_AGENTS"
 
+# --- 2.5. workflows (Dynamic Workflows) ---
+EXPECTED_WFS=6
+ACTUAL_WFS=$(find "$ARSENAL_DIR/workflows" -maxdepth 1 -mindepth 1 -type f -name '*.js' 2>/dev/null | wc -l | tr -d ' ')
+[[ "$ACTUAL_WFS" -gt 0 ]] && check "workflows = $EXPECTED_WFS" "[[ $ACTUAL_WFS -eq $EXPECTED_WFS ]]" "найдено $ACTUAL_WFS, ожидалось $EXPECTED_WFS"
+
+# --- 2.6. docs/ ---
+check "docs/MODEL_TIERS.md"  "[[ -f '$ARSENAL_DIR/docs/MODEL_TIERS.md' ]]"  "нет docs/MODEL_TIERS.md"
+check "docs/PATTERNS.md"     "[[ -f '$ARSENAL_DIR/docs/PATTERNS.md' ]]"     "нет docs/PATTERNS.md"
+check "workflows/README.md"  "[[ -f '$ARSENAL_DIR/workflows/README.md' ]]"  "нет workflows/README.md"
+
 # --- 3. каждый skill имеет SKILL.md ---
 for skill_dir in "$ARSENAL_DIR/skills/"*/; do
   name=$(basename "$skill_dir")
@@ -52,6 +62,17 @@ done
 check "install.sh синтаксис" "bash -n '$ARSENAL_DIR/install.sh'" "синтаксическая ошибка"
 check "update.sh синтаксис"  "bash -n '$ARSENAL_DIR/update.sh'"  "синтаксическая ошибка"
 check "uninstall.sh синтаксис" "bash -n '$ARSENAL_DIR/uninstall.sh'" "синтаксическая ошибка"
+
+# --- 5.5. каждый workflow .js — валидный JS (node --check) ---
+if command -v node >/dev/null 2>&1; then
+  for wf_file in "$ARSENAL_DIR/workflows/"*.js; do
+    [[ ! -f "$wf_file" ]] && continue
+    name=$(basename "$wf_file")
+    check "workflow/$name — JS valid" "node --check '$wf_file'" "синтаксическая ошибка JS"
+  done
+else
+  warn "node не найден — пропускаю JS-валидацию workflow'ов"
+fi
 
 # --- 6. master CLAUDE.md содержит ключевые правила ---
 check "CLAUDE.md упоминает skills" "grep -q 'скилл' '$ARSENAL_DIR/CLAUDE.md'" "нет упоминания skills"
