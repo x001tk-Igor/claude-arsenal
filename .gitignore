@@ -27,3 +27,6 @@ node_modules/
 # Временные файлы
 *.tmp
 *.bak
+
+# reference/ — локальные клоны внешних репозиториев (не коммитим, скачай через tools/fetch-references.sh)
+reference/

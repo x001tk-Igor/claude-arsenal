@@ -41,6 +41,18 @@
 | `audience-insights.js` | `/audience-insights` | Кастдевы/комменты → боли/сегменты/цитаты |
 | `codebase-audit.js` | `/codebase-audit` | Find per file → adversarial verify → подтверждённые проблемы |
 
+## Reference (5 репозиториев, не в arsenale)
+
+Подробный отчёт — [`SKILL_REPORT_2026-06-09.md`](../SKILL_REPORT_2026-06-09.md). Это **кандидаты на включение** в следующие версии arsenale. Локально скачиваются через `./tools/fetch-references.sh` (НЕ коммитятся).
+
+| Skill | ⭐ | Зачем нам |
+|-------|------|-----------|
+| `Skill Seekers` | 14k | Генерирует скиллы из 18 форматов → 12+ AI-платформ одной командой |
+| `Superpowers` | 222k | 7-фазный engineering workflow + 14 sub-skills (TDD, debugging, code review) |
+| `Repomix` | 26.1k | Пакует репо в 1 файл для code-review, secretlint из коробки |
+| `Autoresearch` | 4.9k | Autonomous iteration с метрикой + safety hooks (для оптимизации трейдинг-стратегий) |
+| `Context Builder` (glebis) | — | 5-фазный discovery для AI-консалтинга → выдаёт CLAUDE.md |
+
 ## Что НЕ вошло (и почему)
 
 Удалено из `anthropics/skills` после аудита:

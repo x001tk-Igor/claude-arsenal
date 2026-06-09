@@ -43,6 +43,9 @@ ACTUAL_WFS=$(find "$ARSENAL_DIR/workflows" -maxdepth 1 -mindepth 1 -type f -name
 check "docs/MODEL_TIERS.md"  "[[ -f '$ARSENAL_DIR/docs/MODEL_TIERS.md' ]]"  "нет docs/MODEL_TIERS.md"
 check "docs/PATTERNS.md"     "[[ -f '$ARSENAL_DIR/docs/PATTERNS.md' ]]"     "нет docs/PATTERNS.md"
 check "workflows/README.md"  "[[ -f '$ARSENAL_DIR/workflows/README.md' ]]"  "нет workflows/README.md"
+check "SKILL_REPORT"         "[[ -f '$ARSENAL_DIR/SKILL_REPORT_2026-06-09.md' ]]" "нет SKILL_REPORT_2026-06-09.md"
+check "tools/fetch-references.sh" "[[ -x '$ARSENAL_DIR/tools/fetch-references.sh' ]]" "нет/не исполняемый tools/fetch-references.sh"
+check ".gitignore правит reference/" "grep -q '^reference/' '$ARSENAL_DIR/.gitignore'" "reference/ не игнорируется"
 
 # --- 3. каждый skill имеет SKILL.md ---
 for skill_dir in "$ARSENAL_DIR/skills/"*/; do
