@@ -26,7 +26,7 @@ check "runtime/ скелет" "[[ -d '$ARSENAL_DIR/runtime/shared' && -d '$ARSEN
 check "SKILL_INDEX.md" "[[ -f '$ARSENAL_DIR/docs/SKILL_INDEX.md' ]]" "нет docs/SKILL_INDEX.md"
 
 # --- 2. ожидаемое количество skills/агентов ---
-EXPECTED_SKILLS=8
+EXPECTED_SKILLS=13
 ACTUAL_SKILLS=$(find "$ARSENAL_DIR/skills" -maxdepth 1 -mindepth 1 -type d | wc -l | tr -d ' ')
 check "skills = $EXPECTED_SKILLS" "[[ $ACTUAL_SKILLS -eq $EXPECTED_SKILLS ]]" "найдено $ACTUAL_SKILLS, ожидалось $EXPECTED_SKILLS"
 
@@ -87,5 +87,3 @@ ok "Passed: $PASS"
 [[ $FAIL -gt 0 ]] && fail "Failed: $FAIL" || ok "Failed: $FAIL"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 exit $FAIL
-</content>
-</invoke>

@@ -17,7 +17,7 @@
 | Что | Где | Зачем |
 |-----|-----|-------|
 | **8 специализированных агентов** | `~/.claude/agents/` | Router + 7 агентов для типовых задач (ресёрч, парсинг, видео, отчёты, ...) |
-| **12 куратированных skills** | `~/.claude/skills/` | Не всё из anthropics/skills, а только то, что реально нужно |
+| **13 куратированных skills** | `~/.claude/skills/` | 8 базовых (anthropic+karpathy) + 5 маркетинговых (victorbuto), не весь `anthropics/skills` |
 | **Runtime** | `agent-runtime/` | Контракт для цепочек агентов (shared/outputs/state/messages) |
 | **Шаблоны** | `templates/` | Скелеты для создания своих агентов и skills |
 | **Agent Teams опционально** | `settings/` | Включается раскомментированием `teammateMode: tmux` |

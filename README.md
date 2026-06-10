@@ -9,10 +9,10 @@
 
 **claude-arsenal** — это не «ещё один форк anthropics/skills». Это **тщательно подобранная** под боевые задачи коллекция из:
 
-- **8 skills** — для работы с документами, таблицами, API, кодом
+- **13 skills** — для работы с документами, таблицами, API, кодом (8 базовых + 5 маркетинговых/исследовательских)
 - **8 агентов** — для типовых задач (парсинг, отчёты, ресёрч, YouTube, заметки)
 - **6 Dynamic Workflows** — оркестрация поверх агентов (fan-out, 3-judge panel, opus synthesis)
-- **5 reference-репозиториев** — для будущей интеграции (superpowers, repomix, autoresearch, skill-seekers, context-builder)
+- **6 reference-репозиториев** — для будущей интеграции (superpowers, repomix, autoresearch, skill-seekers, context-builder, victorbuto)
 
 ## 🚀 Установка одной командой
 
@@ -20,7 +20,7 @@
 curl -fsSL https://raw.githubusercontent.com/x001tk-Igor/claude-arsenal/main/install.sh | bash
 ```
 
-После установки **перезапусти Claude Code**. Все 22 компонента подхватятся автоматически:
+После установки **перезапусти Claude Code**. Все 27 компонентов подхватятся автоматически:
 
 - Skills → `~/.claude/skills/`
 - Agents → `~/.claude/agents/`
@@ -47,7 +47,7 @@ FORCE=1 ./update.sh   # с перезаписью
 
 ## 📦 Что входит
 
-### Skills (8) — для Claude Code
+### Skills (13) — для Claude Code
 
 Скилл = переиспользуемый workflow, активируется автоматически по `description` в YAML-шапке. Или явно: «используй skill `pdf` для этого».
 
@@ -61,6 +61,20 @@ FORCE=1 ./update.sh   # с перезаписью
 | **`pptx`** | PowerPoint-презентации (программно, через python-pptx). | automatic |
 | **`google-sheets`** | Работа с Google Sheets через API — формулы, графики, форматирование. | automatic |
 | **`mcp-builder`** | Создать новый MCP-сервер (Python FastMCP или Node/TS SDK). | automatic |
+
+#### Маркетинговые / исследовательские (5) — victorbuto
+
+| Skill | Когда брать | Триггеры |
+|-------|-------------|----------|
+| **`brand-analysis`** | Глубокий разбор бренда: позиционирование, ToV, ЦА, RTB, коммуникация. 3 параллельных агента + синтез. | «разбери бренд», «ToV», «анализ позиционирования», «brand analysis» |
+| **`research-design`** | Постановка задач исследования: SPICE-контекст, цель/задачи/гипотезы, фидбэк по критериям. | «помоги поставить задачи исследования», «проверь гипотезы», «research questions» |
+| **`qual-research-design`** | Дизайн качественного полевого: сегменты, метод (глубинки/ФГ/экспертные), расчёт количества. | «дизайн исследования», «сколько интервью», «fieldwork design» |
+| **`segmentation-hypotheses`** | Выбор метода сегментации (28 методов Gopractice) + гипотезы сегментов. | «сегментация», «гипотезы сегментов», «audience segments» |
+| **`Deep-web-search`** ⚠️ | Slice-метод поиска с 3 параллельными подагентами. Только search execution, без fact-check. | «search keywords», «find information», «research» |
+
+⚠️ **Пересечение:** `Deep-web-search` skill и `deep-research` workflow оба триггерятся на «research» / «найди информацию». Разделение:
+- `deep-research` workflow — **полноценный research** со scope → fan-out → 3-judge verify → opus synthesis (тяжёлый, для финальных отчётов)
+- `Deep-web-search` skill — **лёгкий search** по Slice-методу, без verify (быстро пробить коммерческий шум)
 
 **Ключевой дизайн-принцип:** каждый skill — это **3 слоя** (description → instructions → tools). Skills без `tools/` — это просто промты, и они дают на 90% меньше пользы. Все наши skills заполнены.
 
@@ -117,6 +131,7 @@ fan-out (parallel, дешёвая модель)
 | **`skill-seekers`** | 14k | 18 форматов → 12+ AI-платформ одной командой |
 | **`autoresearch`** | 4.9k | Autonomous iteration с метрикой + 9 safety hooks |
 | **`context-builder`** | — | 5-фазный discovery для AI-консалтинга → выдаёт CLAUDE.md |
+| **`victorbuto-claude-skills`** | — | 5 маркетинговых/исследовательских skills (brand-analysis, research-design, qual-research-design, segmentation-hypotheses, Deep-web-search) — **уже включены в arsenale** |
 
 Полный отчёт с обоснованиями — [`SKILL_REPORT_2026-06-09.md`](SKILL_REPORT_2026-06-09.md).
 
@@ -128,7 +143,7 @@ fan-out (parallel, дешёвая модель)
 │                                                     │
 │  ┌──────────┐  ┌──────────┐  ┌────────────────┐    │
 │  │ Skills   │  │ Agents   │  │ Workflows      │    │
-│  │ (8)      │  │ (8)      │  │ (6)            │    │
+│  │ (13)     │  │ (8)      │  │ (6)            │    │
 │  │ auto-    │  │ tmux +   │  │ v2.1.154+      │    │
 │  │ trigger  │  │ Agent    │  │ JS scripts     │    │
 │  │          │  │ Teams    │  │                │    │
@@ -169,7 +184,7 @@ fan-out (parallel, дешёвая модель)
 |------|-----------|
 | [**CLAUDE.md**](CLAUDE.md) | Master-инструкция arsenale: правила, runtime-контракт, чек-листы |
 | [**CONTRIBUTING.md**](CONTRIBUTING.md) | Как создавать skills и агентов в arsenale |
-| [**docs/SKILL_INDEX.md**](docs/SKILL_INDEX.md) | Полный каталог с описаниями всех 22 компонентов |
+| [**docs/SKILL_INDEX.md**](docs/SKILL_INDEX.md) | Полный каталог с описаниями всех 27 компонентов |
 | [**docs/MODEL_TIERS.md**](docs/MODEL_TIERS.md) | Когда использовать haiku / sonnet / opus |
 | [**docs/PATTERNS.md**](docs/PATTERNS.md) | 3 ключевых паттерна: fan-out, 3-judge panel, pipeline без барьера |
 | [**docs/PERMISSIONS.md**](docs/PERMISSIONS.md) | Объяснение `acceptEdits` режима и allow/deny списков |

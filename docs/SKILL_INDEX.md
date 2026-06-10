@@ -2,7 +2,9 @@
 
 Полный список куратированных skills и агентов. Установка: `./install.sh`.
 
-## Skills (8)
+## Skills (13)
+
+### Базовые (8) — anthropics/skills + karpathy
 
 | Skill | Когда брать | Источник |
 |-------|-------------|----------|
@@ -14,6 +16,20 @@
 | `pptx` | PowerPoint-презентации. | anthropics/skills |
 | `google-sheets` | Работа с Google Sheets через API — формулы, графики, форматирование. | anthropics/skills |
 | `mcp-builder` | Создать новый MCP-сервер. | anthropics/skills |
+
+### Маркетинговые / исследовательские (5) — victorbuto
+
+| Skill | Когда брать | Триггеры |
+|-------|-------------|----------|
+| `brand-analysis` | Глубокий разбор бренда: позиционирование, ToV, ЦА, RTB, коммуникация. 3 параллельных агента + синтез. | «разбери бренд», «ToV», «анализ позиционирования», «brand analysis» |
+| `research-design` | Постановка задач исследования: SPICE-контекст, цель/задачи/гипотезы, фидбэк по критериям. | «помоги поставить задачи исследования», «проверь гипотезы», «research questions» |
+| `qual-research-design` | Дизайн качественного полевого исследования: сегменты, метод (глубинки/ФГ/экспертные), расчёт количества. | «дизайн исследования», «сколько интервью», «fieldwork design» |
+| `segmentation-hypotheses` | Выбор метода сегментации (28 методов Gopractice) + гипотезы сегментов. | «сегментация», «гипотезы сегментов», «audience segments» |
+| `Deep-web-search` | ⚠️ **Slice-метод поиска** с 3 параллельными подагентами. Только search execution, без fact-check. | «search keywords», «find information», «research» |
+
+⚠️ **Пересечение с `deep-research` workflow:** оба триггерятся на «research» / «найди информацию». Разделение:
+- **`deep-research` workflow** — полноценный research: scope → fan-out search → **3-judge verify → opus synthesis** (тяжёлый, для финальных отчётов)
+- **`Deep-web-search` skill** — лёгкий search по Slice-методу: только генерация ключевых слов + 3 параллельных поиска (для быстрого пробивания коммерческого шума)
 
 ## Агенты (8)
 
